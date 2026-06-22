@@ -26,44 +26,66 @@ def total_spendings(): #add total spendings in one week,one month,one year, or c
       total+=amt
   
   print(f"Total spending:{total}")
-      
-def cat_summary():
-  print("<<<Displaying Category Summary>>>")
+
+def store_dictionary():
   dictionary={}
   with open("expense.csv","r") as file:
     for line in file:
       date,amount,cat=line.strip().split(",")
       amount=float(amount)
-      if cat in dictionary:   #can use directly dictionary[cat]=dictionary.get(cat,0) + amount
+      if cat in dictionary:   
         dictionary[cat]+=amount
       else:
         dictionary[cat]=amount
-  for key,value in dictionary.items():
+  return dictionary
+
+def cat_summary():
+  print("<<<Displaying Category Summary>>>")
+  d=store_dictionary()
+  for key,value in d.items():
     print(key,value)
 
 def top_spending():
   print("Calculating your top spendings..... ")
-  dictionary={}
-  with open("expense.csv","r") as file:
-    for line in file:
-      date,amount,cat=line.strip().split(",")
-      amount=float(amount)
-      if cat in dictionary:   #can use directly dictionary[cat]=dictionary.get(cat,0) + amount
-        dictionary[cat]+=amount
-      else:
-        dictionary[cat]=amount
+  d=store_dictionary()
   max_amt=0
-  for key in dictionary:
-    if dictionary.get(key)>max_amt:
-      max_amt=dictionary.get(key)
+  for key in d:
+    if d.get(key)>max_amt:
+      max_amt=d.get(key)
       k=key
-  if not dictionary:
+  if not d:
     print("no expense records found")
     return
   else:
     print(f"your top spending category is: {k}, you have spent:{max_amt}")
-      
 
+def avg_exp():
+  print("***Calculating your average expenses....***\n")
+  d=store_dictionary()
+  total=0
+  count=0
+  for key in d:
+    total+=d.get(key)
+    count+=1
+  avg=total/count
+  print(round(avg,2))
+      
+def monthly_summary():
+  print("=== Printing Monthly Expense Summary ===")
+  d={}
+  with open("expense.csv","r") as file:
+    for line in file:
+      date,amount,category=line.strip().split(",")
+      amount=float(amount)
+      day,month,year=date.split("-")
+      month_key=f"{month}-{year}"
+      if month_key in d:
+        d[month_key]+=amount
+      else:
+        d[month_key]=amount
+  for key,value in d.items():
+    print(key,value)
+    
   
 
   
@@ -76,7 +98,9 @@ def show_menu():
   print("3.Total Spendings")
   print("4.Category Summary")
   print("5.Top Spending")
-  print("5.Exit")
+  print("6.Average Expenses")
+  print("7.Monthly Summary")
+  print("8.Exit")
 
 def main():
   while True:
@@ -94,6 +118,10 @@ def main():
     elif(ch==5):
       top_spending()
     elif(ch==6):
+      avg_exp()
+    elif(ch==7):
+      monthly_summary()
+    elif(ch==8):
       print("exiting the application....Goodbye!!")
       break
     else:
