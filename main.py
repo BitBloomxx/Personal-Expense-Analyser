@@ -86,8 +86,23 @@ def monthly_summary():
   for key,value in d.items():
     print(key,value)
     
+def monthly_trend():
+  d={}
+  with open("expense.csv","r") as file:
+    for line in file:
+      date,amount,category=line.strip().split(",")
+      amount=float(amount)
+      day,month,year=date.split("-")
+      month_key=f"{month}-{year}"
+      if month_key in d:
+        d[month_key]+=amount
+      else:
+        d[month_key]=amount
+  max_val=max(d,key=d.get)
+  min_val=min(d,key=d.get)
+  print(f"Highest Spending Month:{max_val}, your total spendings in this month:{d[max_val]}\n")
+  print(f"Lowest Spending Month:{min_val}, your total spendings in this month:{d[min_val]}\n")
   
-
   
 
 
@@ -100,7 +115,8 @@ def show_menu():
   print("5.Top Spending")
   print("6.Average Expenses")
   print("7.Monthly Summary")
-  print("8.Exit")
+  print("8.Monthly Expense Trend")
+  print("9.Exit")
 
 def main():
   while True:
@@ -122,6 +138,8 @@ def main():
     elif(ch==7):
       monthly_summary()
     elif(ch==8):
+      monthly_trend()
+    elif(ch==9):
       print("exiting the application....Goodbye!!")
       break
     else:
