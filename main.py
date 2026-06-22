@@ -27,6 +27,43 @@ def total_spendings(): #add total spendings in one week,one month,one year, or c
   
   print(f"Total spending:{total}")
       
+def cat_summary():
+  print("<<<Displaying Category Summary>>>")
+  dictionary={}
+  with open("expense.csv","r") as file:
+    for line in file:
+      date,amount,cat=line.strip().split(",")
+      amount=float(amount)
+      if cat in dictionary:   #can use directly dictionary[cat]=dictionary.get(cat,0) + amount
+        dictionary[cat]+=amount
+      else:
+        dictionary[cat]=amount
+  for key,value in dictionary.items():
+    print(key,value)
+
+def top_spending():
+  print("Calculating your top spendings..... ")
+  dictionary={}
+  with open("expense.csv","r") as file:
+    for line in file:
+      date,amount,cat=line.strip().split(",")
+      amount=float(amount)
+      if cat in dictionary:   #can use directly dictionary[cat]=dictionary.get(cat,0) + amount
+        dictionary[cat]+=amount
+      else:
+        dictionary[cat]=amount
+  max_amt=0
+  for key in dictionary:
+    if dictionary.get(key)>max_amt:
+      max_amt=dictionary.get(key)
+      k=key
+  if not dictionary:
+    print("no expense records found")
+    return
+  else:
+    print(f"your top spending category is: {k}, you have spent:{max_amt}")
+      
+
   
 
   
@@ -37,7 +74,9 @@ def show_menu():
   print("1.Add Expense")
   print("2.Show my Expenses")
   print("3.Total Spendings")
-  print("4.Exit")
+  print("4.Category Summary")
+  print("5.Top Spending")
+  print("5.Exit")
 
 def main():
   while True:
@@ -51,6 +90,10 @@ def main():
     elif(ch==3):
       total_spendings()
     elif(ch==4):
+      cat_summary()
+    elif(ch==5):
+      top_spending()
+    elif(ch==6):
       print("exiting the application....Goodbye!!")
       break
     else:
