@@ -46,7 +46,7 @@ def cat_summary():
     print(key,value)
 
 def top_spending():
-  print("Calculating your top spendings..... ")
+  
   d=store_dictionary()
   max_amt=0
   for key in d:
@@ -57,18 +57,23 @@ def top_spending():
     print("no expense records found")
     return
   else:
-    print(f"your top spending category is: {k}, you have spent:{max_amt}")
+    return (f"your top spending category is: {k}, you have spent:{max_amt}")
 
 def avg_exp():
-  print("***Calculating your average expenses....***\n")
-  d=store_dictionary()
+  
   total=0
   count=0
-  for key in d:
-    total+=d.get(key)
-    count+=1
-  avg=total/count
-  print(round(avg,2))
+  with open("expense.csv","r") as file:
+    for line in file:
+      date,amount,cat=line.strip().split(",")
+      amount=float(amount)
+      total+=amount
+      count+=1
+  if count==0:
+    return("no record found")
+  else:
+    avg=total/count
+  return(round(avg,2))
       
 def monthly_summary():
   print("=== Printing Monthly Expense Summary ===")
@@ -103,7 +108,18 @@ def monthly_trend():
   print(f"Highest Spending Month:{max_val}, your total spendings in this month:{d[max_val]}\n")
   print(f"Lowest Spending Month:{min_val}, your total spendings in this month:{d[min_val]}\n")
   
+def export_report():
+  with open("report.txt","w") as file:  #we open this write mode because everytime this function is called a fresh new report is generated because everything is overwritten 
+    file.write("PERSONAL EXPENSE REPORT\n")
+    file.write("="*30+"\n")
+    avg=avg_exp()
+    file.write(f"Your Average Expenses: {avg}\n")
+    file.write("TOP SPENDING\n")
+    top=top_spending()
+    file.write(top)
+
   
+
 
 
 def show_menu():
@@ -116,7 +132,8 @@ def show_menu():
   print("6.Average Expenses")
   print("7.Monthly Summary")
   print("8.Monthly Expense Trend")
-  print("9.Exit")
+  print("9.Export report")
+  print("10.Exit")
 
 def main():
   while True:
@@ -132,14 +149,18 @@ def main():
     elif(ch==4):
       cat_summary()
     elif(ch==5):
-      top_spending()
+      print("Calculating your top spendings.....\n")
+      print(top_spending())
     elif(ch==6):
-      avg_exp()
+      print("***Calculating your average expenses....***\n")
+      print("average expenses calculated:-",avg_exp())
     elif(ch==7):
       monthly_summary()
     elif(ch==8):
       monthly_trend()
     elif(ch==9):
+      export_report()
+    elif(ch==10):
       print("exiting the application....Goodbye!!")
       break
     else:
