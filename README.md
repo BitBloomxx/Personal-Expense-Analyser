@@ -20,18 +20,6 @@ This project helps users record daily expenses, analyze spending habits, and gen
 
 ---
 
-## 🛠️ Technologies Used
-
-* Python 3
-* File Handling (CSV)
-* Functions
-* Loops & Conditionals
-* Lists & Dictionaries
-* Exception Handling
-* Modules
-
----
-
 ## 📂 Project Structure
 
 ```text
@@ -39,45 +27,13 @@ expense-tracker-cli/
 │
 ├── main.py          # Main application
 ├── expenses.csv     # Expense database
-├── reports.py       # Report generation logic
+├── reports.py       # Report generation 
 ├── README.md
 └── .gitignore
 ```
 
 ---
 
-## 📋 Sample Expense Data
-
-```csv
-date,amount,category
-2026-06-20,500,Food
-2026-06-21,300,Travel
-2026-06-21,1200,Shopping
-```
-
----
-
-## ▶️ Running the Project
-
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/expense-tracker-cli.git
-```
-
-Move into the project folder:
-
-```bash
-cd expense-tracker-cli
-```
-
-Run the application:
-
-```bash
-python main.py
-```
-
----
 
 ## 🎯 Learning Objectives
 
@@ -100,21 +56,24 @@ This project was built to revise and strengthen core Python concepts:
 ## 📊 Example Menu
 
 ```text
-Expense Tracker
-
-1. Add Expense
-2. Show Expenses
-3. Monthly Summary
-4. Category Summary
-5. Export Report
-6. Exit
+===MENU===
+1.Add Expense
+2.Show my Expenses
+3.Total Spendings
+4.Category Summary
+5.Top Spending
+6.Average Expenses
+7.Monthly Summary
+8.Monthly Expense Trend
+9.Export report
+10.Exit
 ```
 
 ---
 
 ## 🧠 Why This Project?
 
-This project serves as a bridge between Python fundamentals and data analysis.
+This project serves as a bridge between Python fundamentals and data analysis and is suitable for people who want to revise and practice main concepts of python before starting advanced topics.
 
 The same skills used here for reading and processing CSV files are foundational for learning:
 
@@ -142,4 +101,4 @@ This project is open-source and available under the MIT License.
 
 ---
 
-### ⭐ If you found this project useful, consider giving it a star.
+
