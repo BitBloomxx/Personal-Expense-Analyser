@@ -1,4 +1,29 @@
 PERSONAL EXPENSE REPORT
 ==============================
-Your Average Expenses: 261.68TOP SPENDING
-your top spending category is: shopping, you have spent:700.0
+Generated On: 24-06-2026 22:28
+
+
+Your Average Expenses: 365.93
+your total spendings:3293.4
+
+TOP SPENDING
+your top spending category is: Food, you have spent:1655.0
+
+CATEGORY WISE SPENDING DATA
+Food:1655.0
+shopping:700.0
+Cinemas:300.9
+Books:92.5
+Travel:345.0
+Stationary:200.0
+
+MONTHLY SUMMARY
+06-2026:1428.4
+07-2026:1865.0
+
+MONTHLY TRENDS OBSERVED
+Highest Spending Month:07-2026, your total spendings in this month:1865.0
+Lowest Spending Month:06-2026, your total spendings in this month:1428.4
+
+----End of Report----
+==============================

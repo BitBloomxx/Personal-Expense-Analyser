@@ -1,8 +1,9 @@
+from datetime import datetime
 print("\033[35m-----PERSONAL EXPENSE TRACKER-----\033[0m")
 
 def add_Expense():
   amount=float(input("enter amount"))
-  category=input("what did you spend this amount on? 🤔")
+  category=input("what did you spend this amount on? 🤔").title()
   date=input("enter date")
   print("Expense Added-\n")
   print(f"amount: {amount}")
@@ -18,14 +19,14 @@ def show_expenses():  #add category wise displaying expenses
       print(line.strip())
 
 def total_spendings(): #add total spendings in one week,one month,one year, or custom
-  print("<<< Displaying your total expenses >>>")
+  
   total=0
   with open("expense.csv","r") as file:
     for line in file:
       amt=float(line.split(",")[1])
       total+=amt
+  return total
   
-  print(f"Total spending:{total}")
 
 def store_dictionary():
   dictionary={}
@@ -76,7 +77,7 @@ def avg_exp():
   return(round(avg,2))
       
 def monthly_summary():
-  print("=== Printing Monthly Expense Summary ===")
+  
   d={}
   with open("expense.csv","r") as file:
     for line in file:
@@ -88,8 +89,8 @@ def monthly_summary():
         d[month_key]+=amount
       else:
         d[month_key]=amount
-  for key,value in d.items():
-    print(key,value)
+  return d
+  
     
 def monthly_trend():
   d={}
@@ -105,20 +106,38 @@ def monthly_trend():
         d[month_key]=amount
   max_val=max(d,key=d.get)
   min_val=min(d,key=d.get)
-  print(f"Highest Spending Month:{max_val}, your total spendings in this month:{d[max_val]}\n")
-  print(f"Lowest Spending Month:{min_val}, your total spendings in this month:{d[min_val]}\n")
+  return d,max_val,min_val
+  
   
 def export_report():
+  print("generating a personal expense report")
   with open("report.txt","w") as file:  #we open this write mode because everytime this function is called a fresh new report is generated because everything is overwritten 
+    timestamp=datetime.now().strftime("%d-%m-%Y %H:%M")
     file.write("PERSONAL EXPENSE REPORT\n")
     file.write("="*30+"\n")
+    file.write(f"Generated On: {timestamp}\n\n")
     avg=avg_exp()
-    file.write(f"Your Average Expenses: {avg}\n")
-    file.write("TOP SPENDING\n")
+    file.write(f"\nYour Average Expenses: {avg}\n")
+    tot=total_spendings()
+    file.write(f"your total spendings:{tot}\n")
+    file.write("\nTOP SPENDING\n")
     top=top_spending()
-    file.write(top)
-
-  
+    file.write(top+"\n")
+    cat_data=store_dictionary()
+    file.write("\nCATEGORY WISE SPENDING DATA\n")
+    for key,value in cat_data.items():
+      file.write(f"{key}:{value}\n")
+    file.write("\nMONTHLY SUMMARY\n")
+    d1=monthly_summary()
+    for key,value in d1.items():
+      file.write(f"{key}:{value}\n")
+    file.write("\nMONTHLY TRENDS OBSERVED\n")
+    d,a,b=monthly_trend()
+    file.write(f"Highest Spending Month:{a}, your total spendings in this month:{d[a]}\n")
+    file.write(f"Lowest Spending Month:{b}, your total spendings in this month:{d[b]}\n")
+    file.write("\n----End of Report----\n")
+    file.write("="*30+"\n")
+    print("generated you can view it in report.txt!!!")
 
 
 
@@ -145,7 +164,9 @@ def main():
     elif(ch==2):
       show_expenses()
     elif(ch==3):
-      total_spendings()
+      print("<<< Displaying your total expenses >>>")
+      t=total_spendings()
+      print(f"Total spending:{t}")
     elif(ch==4):
       cat_summary()
     elif(ch==5):
@@ -155,9 +176,15 @@ def main():
       print("***Calculating your average expenses....***\n")
       print("average expenses calculated:-",avg_exp())
     elif(ch==7):
-      monthly_summary()
+      print("=== Printing Monthly Expense Summary ===")
+      d=monthly_summary()
+      for key,value in d.items():
+        print(key,value)
     elif(ch==8):
-      monthly_trend()
+      print("***Monthly Expense Trend***")
+      d,a,b=monthly_trend()
+      print(f"Highest Spending Month:{a}, your total spendings in this month:{d[a]}\n")
+      print(f"Lowest Spending Month:{b}, your total spendings in this month:{d[b]}\n")
     elif(ch==9):
       export_report()
     elif(ch==10):
