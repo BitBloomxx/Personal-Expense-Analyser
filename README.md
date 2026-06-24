@@ -93,12 +93,5 @@ The same skills used here for reading and processing CSV files are foundational 
 * SQLite database integration
 * Web version using Flask
 
----
-
-## 📜 License
-
-This project is open-source and available under the MIT License.
-
----
 
 
