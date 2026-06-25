@@ -1,7 +1,6 @@
 # 💰 Expense Tracker CLI
 
 A simple command-line expense tracking application built with Python.
-
 This project helps users record daily expenses, analyze spending habits, and generate reports directly from the terminal.
 (A mini project I made to revise my core concepts to prepare myself for advanced machine learning topics :))
 ---
