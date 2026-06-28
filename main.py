@@ -2,8 +2,25 @@ from datetime import datetime
 print("\033[35m-----PERSONAL EXPENSE TRACKER-----\033[0m")
 
 def add_Expense():
-  amount=float(input("enter amount"))
-  category=input("what did you spend this amount on? 🤔").title()
+  while True:
+    try:
+      amount=float(input("enter amount"))
+      if (amount<0):
+        print("amount cant be negative")
+        continue
+      break
+    except ValueError:
+      print("enter a valid amount!")
+  while True:
+    category = input("What did you spend this amount on? 🤔").strip()
+
+    if category == "":
+      print("Category cannot be empty!")
+      continue
+
+    category = category.title()
+    break
+ 
   date=input("enter date")
   print("Expense Added-\n")
   print(f"amount: {amount}")
@@ -14,31 +31,41 @@ def add_Expense():
 
 def show_expenses():  #add category wise displaying expenses
   print("<<<< Displaying your expenses >>>>") 
-  with open("expense.csv","r") as file:
-    for line in file:
-      print(line.strip())
+  try:
+    with open("expense.csv","r") as file:
+      for line in file:
+        print(line.strip())
+  except(FileNotFoundError):
+      print("FILE NOT FOUND :/")
 
 def total_spendings(): #add total spendings in one week,one month,one year, or custom
   
   total=0
-  with open("expense.csv","r") as file:
-    for line in file:
-      amt=float(line.split(",")[1])
-      total+=amt
-  return total
+  try:
+    with open("expense.csv","r") as file:
+      for line in file:
+        amt=float(line.split(",")[1])
+        total+=amt
+    return total
+  except(FileNotFoundError):
+    print("FILE NOT FOUND :/")
+  
   
 
 def store_dictionary():
   dictionary={}
-  with open("expense.csv","r") as file:
-    for line in file:
-      date,amount,cat=line.strip().split(",")
-      amount=float(amount)
-      if cat in dictionary:   
-        dictionary[cat]+=amount
-      else:
-        dictionary[cat]=amount
-  return dictionary
+  try:
+    with open("expense.csv","r") as file:
+      for line in file:
+        date,amount,cat=line.strip().split(",")
+        amount=float(amount)
+        if cat in dictionary:   
+          dictionary[cat]+=amount
+        else:
+          dictionary[cat]=amount
+    return dictionary
+  except(FileNotFoundError):
+      print("FILE NOT FOUND :/")
 
 def cat_summary():
   print("<<<Displaying Category Summary>>>")
@@ -157,7 +184,11 @@ def show_menu():
 def main():
   while True:
     show_menu()
-    ch=int(input("How do you want to proceed?"))
+    try:
+      ch=int(input("How do you want to proceed?"))
+    except ValueError:
+      print("invalid choice please enter a number from 1-9")
+      continue
     if(ch==1):
       print("welcome to your personal expense analyzer!! adding expenses :)")
       add_Expense()
