@@ -4,6 +4,7 @@ A simple command-line expense tracking application built with Python.
 
 This project helps users record daily expenses, analyze spending habits, and generate reports directly from the terminal.
 
+
 ---
 
 ## 🚀 Features
@@ -93,12 +94,5 @@ The same skills used here for reading and processing CSV files are foundational 
 * SQLite database integration
 * Web version using Flask
 
----
-
-## 📜 License
-
-This project is open-source and available under the MIT License.
-
----
 
 
